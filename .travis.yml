@@ -16,9 +16,11 @@ before_install:
 
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -U tox-travis
+
 script: tox
+
 deploy:
-  provider: pypi
+- provider: pypi
   distributions: sdist bdist_wheel
   user: ${PYPI_USER}
   password: ${PYPI_PASSWORD}
@@ -27,3 +29,11 @@ deploy:
     branch: master
     repo: oceanprotocol/aquarius
     python: 3.6
+
+- provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: 3/G1wIUSwhearZ071i8ahsefQfKj84Iooq0sfkMyH5zN8aCaXiFj8WkemWJ14S1oi95ZdYCxbvcUGomHMm3uviZrfhn5J5bvU344joKkhk/X5gVCsV0FcP9C5DEpSAJjKTDKs8D8rgXtIVX7zYzdRYl2UW6+YL11KQbm+Ql7zs0RnJdctR4Ae4O53LjKMd8olv/khl5iLParzAmWrJQA610WXcayYic7hoxB+f7R6dcOaBoe1ecXWgHkJ0mGdRQOKpm/6Um3BIaeA2ra+Si2JYPdSvgXdoRcTuIPugzySmDONdmD8FOnip63IU/3iLbZupiI5YX5pZRvnoa+up/Moza64brHsw73iIm/U/peH+2g1mNjfb8nSW9x9ft3gfOq0gavc0rpsC8zrLLllxVjT/1AOpH1K78b6a2Dm2yXCF+rgyZ6aCPIRuego74s1GUaR29VjJByR8OBODKE5GcH0bNk3iP9g9hYE7i35nHqI1P06jF4Kx/zZ6nOAXHattff9az5RRGzpPCR9TkgU7ALxwPrit14V4EyxODIyX7woNnGYY7YtmUzi951I54zPyYORpuPDhhN3d8tnPiU1TLR55P0QbaqTzi8QZ28rXyG36xOveEpJT+TaCIuW9To3K7xOMmeCakEL6/DhPQHHeqhzt3J9xymXCrc1qU5ZnpScHw=
+  on:
+    tags: true
+    all_branches: true
